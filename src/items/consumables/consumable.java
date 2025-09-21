@@ -109,4 +109,8 @@ public abstract class Consumable extends Item {
                 this.getClass().getSimpleName(), getName(), getSizeUnits(), 
                 targetType.getSimpleName(), baseEatMillis);
     }
+
+    public interface RequiresServeware {
+        String requiredServewareToken();
+    }
 }
