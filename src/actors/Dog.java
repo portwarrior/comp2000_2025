@@ -1,11 +1,20 @@
+package actors;
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.ArrayList;
+
+import world.Cell;
 
 public class Dog extends Actor {
   public Dog(Cell inLoc) {
     loc = inLoc;
     color = Color.YELLOW;
+    setHealth(120); // Dogs are sturdy with high health
+    buildDisplay();
+  }
+  
+  @Override
+  protected void buildDisplay() {
     display = new ArrayList<Polygon>();
     Polygon ear1 = new Polygon();
     ear1.addPoint(loc.x + 5, loc.y + 5);

@@ -12,10 +12,18 @@ public abstract class Actor {
   Cell loc;
   List<Polygon> display;
   AnimalInventory inventory;
+  
+  // Health system
+  protected int maxHealth;
+  protected int currentHealth;
 
   public Actor() {
     // Default inventory size of 10 units
     this.inventory = new AnimalInventory(10);
+    
+    // Default health values (can be overridden by subclasses)
+    this.maxHealth = 100;
+    this.currentHealth = maxHealth;
   }
 
   public void paint(Graphics g) {
@@ -53,5 +61,55 @@ public abstract class Actor {
    */
   public AnimalInventory getInventory() {
     return inventory;
+  }
+  
+  /**
+   * Get current health
+   */
+  public int getCurrentHealth() {
+    return currentHealth;
+  }
+  
+  /**
+   * Get maximum health
+   */
+  public int getMaxHealth() {
+    return maxHealth;
+  }
+  
+  /**
+   * Get health as a percentage (0.0 to 1.0)
+   */
+  public double getHealthPercentage() {
+    return (double) currentHealth / maxHealth;
+  }
+  
+  /**
+   * Take damage and reduce health
+   */
+  public void takeDamage(int damage) {
+    currentHealth = Math.max(0, currentHealth - damage);
+  }
+  
+  /**
+   * Heal and increase health
+   */
+  public void heal(int healAmount) {
+    currentHealth = Math.min(maxHealth, currentHealth + healAmount);
+  }
+  
+  /**
+   * Check if the actor is alive
+   */
+  public boolean isAlive() {
+    return currentHealth > 0;
+  }
+  
+  /**
+   * Set health values (for different animal types)
+   */
+  protected void setHealth(int maxHealth) {
+    this.maxHealth = maxHealth;
+    this.currentHealth = maxHealth;
   }
 }

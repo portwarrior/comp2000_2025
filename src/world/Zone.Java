@@ -66,7 +66,6 @@ public class Zone {
     }
 
     // Check if animals can enter  (birds can't enter depths)
-     */
     public boolean canAnimalEnter(String animalType) {
         if (landscape == LandscapeType.DEPTHS && "Bird".equals(animalType)) {
             return false;

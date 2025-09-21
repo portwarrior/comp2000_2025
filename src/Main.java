@@ -14,6 +14,8 @@ public class Main extends JFrame {
       Stage stage = new Stage();
       public Canvas() {
         setPreferredSize(new Dimension(1024, 720));
+        // Add the stage as a mouse listener so it can handle clicks
+        addMouseListener(stage);
       }
 
       @Override

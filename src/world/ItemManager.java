@@ -3,7 +3,6 @@ package world;
 import items.Item;
 import items.VisualItem;
 import items.consumables.*;
-import items.tools.*;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
