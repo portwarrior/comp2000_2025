@@ -25,13 +25,13 @@ function Compile {
     Set-Location $SRC_DIR
     
     # Check if Main.java exists
-    if (!(Test-Path $MAIN_CLASS.java)) {
-        Write-Host "Error: $MAIN_CLASS.java not found!" -ForegroundColor Red
+    if (!(Test-Path "${MAIN_CLASS}.java")) {
+        Write-Host "Error: ${MAIN_CLASS}.java not found!" -ForegroundColor Red
         Set-Location ..
         exit 1
     }
     
-    javac -cp . $MAIN_CLASS.java
+    javac -cp . "${MAIN_CLASS}.java"
     if ($LASTEXITCODE -eq 0) {
         Write-Host "Compilation successful!" -ForegroundColor Green
     } else {
