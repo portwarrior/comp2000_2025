@@ -99,6 +99,32 @@ public abstract class Actor {
   }
   
   /**
+   * Simple eating mechanism - animals gain health from preferred foods
+   * Dogs like bones, Cats like milk, Birds like worms
+   */
+  public void eatFood(String foodType) {
+    int healthGain = 0;
+    
+    // Simple food preferences for each animal type
+    String animalType = this.getClass().getSimpleName();
+    
+    if ("Dog".equals(animalType) && foodType.toLowerCase().contains("bone")) {
+      healthGain = 20; // Dogs gain 20% health from bones
+    } else if ("Cat".equals(animalType) && foodType.toLowerCase().contains("milk")) {
+      healthGain = 15; // Cats gain 15% health from milk
+    } else if ("Bird".equals(animalType) && foodType.toLowerCase().contains("worm")) {
+      healthGain = 25; // Birds gain 25% health from worms
+    } else if (foodType.toLowerCase().contains("water")) {
+      healthGain = 5;  // All animals gain 5% health from water
+    }
+    
+    if (healthGain > 0) {
+      heal(healthGain);
+      System.out.println(animalType + " ate " + foodType + " and gained " + healthGain + " health! Current health: " + currentHealth + "/" + maxHealth);
+    }
+  }
+  
+  /**
    * Check if the actor is alive
    */
   public boolean isAlive() {

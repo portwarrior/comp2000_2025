@@ -75,16 +75,16 @@ public class SpawnPoint {
                 return true; // All items can spawn in neutral zones
                 
             case LEGOS:
-                return itemType.contains("bone") || itemType.contains("bowl") || 
-                       itemType.contains("water") || itemType.contains("worm"); // Add worms
+                return itemType.toLowerCase().contains("bone") || itemType.toLowerCase().contains("bowl") || 
+                       itemType.toLowerCase().contains("water") || itemType.toLowerCase().contains("worm");
                 
             case SAND_DUNES:
 
-                return itemType.contains("milk") || itemType.contains("cup") || 
-                       itemType.contains("water") || itemType.contains("worm"); // Add worms
+                return itemType.toLowerCase().contains("milk") || itemType.toLowerCase().contains("cup") || 
+                       itemType.toLowerCase().contains("water") || itemType.toLowerCase().contains("worm");
             case DEPTHS:
                 // DEPTHS NO worms (birds cant enter)
-                return itemType.contains("water") || itemType.contains("saucer");
+                return itemType.toLowerCase().contains("water") || itemType.toLowerCase().contains("saucer");
 
             default:
                 return false;

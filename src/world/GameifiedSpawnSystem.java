@@ -67,11 +67,11 @@ public class GameifiedSpawnSystem {
         landscapeWeights.put("NEUTRAL", neutralWeights);
         
         Map<String, Double> legosWeights = new HashMap<>();
-        legosWeights.put("bone", 0.8);     // High dog food
-        legosWeights.put("water", 0.6);    // Dogs need water
+        legosWeights.put("bone", 2.0);     // Super high dog food priority
+        legosWeights.put("water", 0.3);    // Reduce water priority
         legosWeights.put("bowl", 0.4);     // Dog tools
-        legosWeights.put("milk", 0.2);     // Some cat food
-        legosWeights.put("worm", 0.2);     // Some bird food
+        legosWeights.put("milk", 0.1);     // Less cat food
+        legosWeights.put("worm", 0.1);     // Less bird food
         legosWeights.put("cup", 0.1);
         legosWeights.put("saucer", 0.1);
         landscapeWeights.put("LEGOS", legosWeights);

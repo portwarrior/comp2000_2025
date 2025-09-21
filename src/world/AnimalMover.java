@@ -81,6 +81,8 @@ public class AnimalMover {
                             if (pickedUp) {
                                 System.out.println(selectedActor.getClass().getSimpleName() + 
                                                  " picked up " + item.getName());
+                                selectedActor.eatFood(item.getName());
+                                
                             } else {
                                 // Inventory full, drop item 
                                 itemManager.spawnItem(item.getName().toLowerCase(), targetCell);
