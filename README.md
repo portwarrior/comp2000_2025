@@ -162,5 +162,15 @@ This repository contains original coursework developed for educational purposes.
 
 ---
 
+
+Attriubution- dog scribe AomAm
+cat scribe  Freepik
+bird scribe Those Icons
+Milk scribe Freepik
+Bone scribe Freepik
+Worm Scribe Freepik
+Water Scribe Vectors Market
+Bowl Scribe Freepik
+Tool Scribe Freepik
 *Last Updated: September 20, 2025*  
 *Project Status: Fully Functional - Movement System Complete*

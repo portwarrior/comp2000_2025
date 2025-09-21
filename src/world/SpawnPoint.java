@@ -71,14 +71,17 @@ public class SpawnPoint {
         LandscapeType landscape = zone.getLandscape();
         
         switch (landscape) {
+            case NEUTRAL:
+                return true; // All items can spawn in neutral zones
+                
             case LEGOS:
                 return itemType.contains("bone") || itemType.contains("bowl") || 
-                       itemType.contains("water"); // Water can spawn anywhere
+                       itemType.contains("water") || itemType.contains("worm"); // Add worms
                 
             case SAND_DUNES:
 
                 return itemType.contains("milk") || itemType.contains("cup") || 
-                       itemType.contains("water"); // Water can spawn anywhere
+                       itemType.contains("water") || itemType.contains("worm"); // Add worms
             case DEPTHS:
                 // DEPTHS NO worms (birds cant enter)
                 return itemType.contains("water") || itemType.contains("saucer");
