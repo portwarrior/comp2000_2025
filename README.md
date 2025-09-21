@@ -16,7 +16,7 @@ I spent a lot of time making the health bars look professional, like something f
 What I'm most proud of is how the world generates itself. Every time you run the game, you get a different landscape with zones that have their own themes:
 
 - **White neutral areas** where everyone is welcome
-- **Blue LEGO zones** where dogs feel at home
+- **Green LEGO zones** where dogs feel at home
 - **Orange sandy dunes** perfect for cats 
 - **Deep blue water areas** where birds thrive
 
@@ -30,7 +30,7 @@ The health system makes every decision meaningful. Do you risk letting your bird
 
 ### How to Play
 
-Playing is intuitive and relaxing. Click on any animal to select it - you'll see a yellow ring appear around them. Grey circles show where they can move, just like a king in chess (eight directions). Click on any grey circle to move your animal there instantly.
+Playing is intuitive and relaxing. Click on any animal to select it, you'll see a yellow ring appear around them. Grey circles show where they can move, just like a king in chess (eight directions). Click on any grey circle to move your animal there instantly.
 
 What I love about the controls is how immediate they feel. There's no lag, no complicated menus - just click and go. You can switch between animals freely, and each one responds to your guidance while living their own life in the world.
 
@@ -135,12 +135,9 @@ To get started- Run powershell file with `./make.ps1 clean` then run the code in
 **Course**: COMP2000 - Object Oriented Programming Practices  
 **Session**: 2, 2025  
 **Institution**: University Assignment  
-**Academic Level**: Third Year Computer Science
 
 ### Academic Integrity Notice
 This repository contains original coursework developed for educational purposes. All external resources and references are properly cited above. The implementation demonstrates understanding of object-oriented programming concepts through practical application.
-
-*Any repository containing assignment code **must** be kept private to maintain academic integrity standards.*
 
 ---
 
@@ -163,7 +160,8 @@ This repository contains original coursework developed for educational purposes.
 ---
 
 
-Attriubution- dog scribe AomAm
+Attriubution- 
+dog scribe AomAm
 cat scribe  Freepik
 bird scribe Those Icons
 Milk scribe Freepik
