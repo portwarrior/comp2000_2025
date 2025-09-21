@@ -1,28 +1,29 @@
+package world;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Cell extends Rectangle {
-  static int size = 35;
-  char col;
-  int row;
+  public static final int SIZE = 35;  
+  public char col;  
+  public int row;   
 
   public Cell(char inCol, int inRow, int x, int y) {
-    super(x, y, size, size);
+    super(x, y, SIZE, SIZE);
     col = inCol;
     row = inRow;
   }
 
   public void paint(Graphics g, Point mousePos) {
+
     if(contains(mousePos)) {
-      g.setColor(Color.GRAY);
-    } else {
-      g.setColor(Color.WHITE);
+      g.setColor(new Color(0, 0, 0, 50)); 
+      g.fillRect(x, y, SIZE, SIZE);
     }
-    g.fillRect(x, y, size, size);
     g.setColor(Color.BLACK);
-    g.drawRect(x, y, size, size);
+    g.drawRect(x, y, SIZE, SIZE);
   }
 
   public boolean contains(Point p) {
