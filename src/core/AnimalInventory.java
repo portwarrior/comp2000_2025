@@ -67,13 +67,6 @@ public class AnimalInventory {
     }
     
     /**
-     * Get remaining capacity
-     */
-    public int getRemainingCapacity() {
-        return maxCapacity - getCurrentSize();
-    }
-    
-    /**
      * Get all items
      */
     public List<Item> getAllItems() {
@@ -98,20 +91,6 @@ public class AnimalInventory {
         
         summary.append(" (").append(getCurrentSize()).append("/").append(maxCapacity).append(")");
         return summary.toString();
-    }
-    
-    /**
-     * Clear all items
-     */
-    public void clear() {
-        items.clear();
-    }
-    
-    /**
-     * Check if inventory is full
-     */
-    public boolean isFull() {
-        return getCurrentSize() >= maxCapacity;
     }
     
     /**

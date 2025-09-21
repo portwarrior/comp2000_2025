@@ -100,18 +100,4 @@ public class ItemManager {
     public List<VisualItem> getAllItems() {
         return new ArrayList<>(visualItems);
     }
-
-    /**
-     * Clear all items
-     */
-    public void clearAll() {
-        visualItems.clear();
-    }
-    
-    /**
-     * Get total item count
-     */
-    public int getItemCount() {
-        return visualItems.size();
-    }
 }

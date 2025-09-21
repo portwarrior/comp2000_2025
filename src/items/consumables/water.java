@@ -5,7 +5,7 @@ import actors.Actor;
 /**
  * Requires a Saucer for consumption by any animal type.
  */
-public class Water extends Consumable implements RequiresServeware {
+public class Water extends Consumable {
     
     public static final String REGISTRY_ID = "consumable.water";
     public static final String REQUIRED_SERVEWARE = "tool.saucer";
@@ -22,19 +22,5 @@ public class Water extends Consumable implements RequiresServeware {
     @Override
     public String getRegistryId() {
         return REGISTRY_ID;
-    }
-    
-    @Override
-    public String requiredServewareToken() {
-        return REQUIRED_SERVEWARE;
-    }
-    
-    /**
-     * Water is allowed in all terrains including depths.
-     * All animals can access water but need appropriate gear for  specific terrain
-     */
-    @Override
-    public boolean allowedInDepths() {
-        return true;
     }
 }

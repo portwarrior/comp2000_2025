@@ -219,54 +219,6 @@ public class GameWorldManager {
     }
     
     /**
-     * Get all zones for debugging/testing
-     */
-    public List<Zone> getZones() {
-        return zones;
-    }
-    
-    /**
-     * Get all spawn points for debugging/testing
-     */
-    public List<SpawnPoint> getSpawnPoints() {
-        if (!initialized) {
-            return new ArrayList<>();
-        }
-        return spawnManager.getAllSpawnPoints();
-    }
-    
-    /**
-     * Get stats about the world for debugging
-     */
-    public String getWorldStats() {
-        if (!initialized) {
-            return "World not initialized";
-        }
-        
-        StringBuilder stats = new StringBuilder();
-        stats.append("World Stats:\n");
-        stats.append("Zones: ").append(zones.size()).append("\n");
-        stats.append("Spawn Points: ").append(spawnManager.getAllSpawnPoints().size()).append("\n");
-        stats.append("Actors: ").append(actors.size()).append("\n");
-        
-        // Count spawn points by landscape
-        int legosPoints = 0, sandPoints = 0, depthsPoints = 0;
-        for (SpawnPoint point : spawnManager.getAllSpawnPoints()) {
-            switch (point.getZone().getLandscape()) {
-                case LEGOS: legosPoints++; break;
-                case SAND_DUNES: sandPoints++; break;
-                case DEPTHS: depthsPoints++; break;
-            }
-        }
-        
-        stats.append("LEGOS spawn points: ").append(legosPoints).append("\n");
-        stats.append("SAND spawn points: ").append(sandPoints).append("\n");
-        stats.append("DEPTHS spawn points: ").append(depthsPoints).append("\n");
-        
-        return stats.toString();
-    }
-    
-    /**
      * Get the item manager for item interactions
      */
     public ItemManager getItemManager() {

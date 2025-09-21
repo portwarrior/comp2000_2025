@@ -43,50 +43,6 @@ public abstract class Consumable extends Item {
     }
     
     /**
-     * @return true only when targetType == Actor.class (universal consumption)
-     */
-    public boolean isUniversal() {
-        return isUniversal;
-    }
-    
-    /**
-     * Checks if the given actor may consume this item.
-     */
-    public boolean isTarget(Actor actor) {
-        if (actor == null) return false;
-        return isUniversal || targetType.isInstance(actor);
-    }
-    
-    /**
-     * @return Base consumption duration in milliseconds
-     */
-    public int getBaseEatMillis() {
-        return baseEatMillis;
-    }
-    
-    /**
-     * Calculates adjusted consumption time based on required gear. Applies penalty factor when required gear is missing.
-     */
-    public int getAdjustedEatMillis(boolean wearingRequiredGear) {
-        if (wearingRequiredGear) {
-            return baseEatMillis;
-        } else {
-            // missing gear
-            return (int) Math.round(baseEatMillis * DEFAULT_PENALTY_FACTOR);
-        }
-    }
-    
-    /**
-     * Determines if consumable can spawn in depths
-     * Worm cannot appear in depths.
-     * 
-     * return true by default, override to return false for depth-restricted items
-     */
-    public boolean allowedInDepths() {
-        return true;
-    }
-    
-    /**
      * consumables extend Item's equals to also include targetType and baseEatMillis.
      */
     @Override
@@ -108,9 +64,5 @@ public abstract class Consumable extends Item {
         return String.format("%s{name='%s', sizeUnits=%d, targetType=%s, baseEatMillis=%d}", 
                 this.getClass().getSimpleName(), getName(), getSizeUnits(), 
                 targetType.getSimpleName(), baseEatMillis);
-    }
-
-    public interface RequiresServeware {
-        String requiredServewareToken();
     }
 }

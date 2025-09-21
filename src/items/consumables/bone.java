@@ -1,12 +1,11 @@
 package items.consumables;
 
-import actors.Actor;
 import actors.Dog;
 
 /**
  * Dog-only food that requires a Bowl for consumption.
  */
-public class Bone extends Consumable implements RequiresServeware {
+public class Bone extends Consumable {
     
     public static final String REGISTRY_ID = "consumable.bone";
     public static final String REQUIRED_SERVEWARE = "tool.bowl";
@@ -23,19 +22,5 @@ public class Bone extends Consumable implements RequiresServeware {
     @Override
     public String getRegistryId() {
         return REGISTRY_ID;
-    }
-    
-    @Override
-    public String requiredServewareToken() {
-        return REQUIRED_SERVEWARE;
-    }
-    
-    /**
-     * Bones allowed in all terrains
-     * Dogs need special gear for certain terrains
-     */
-    @Override
-    public boolean allowedInDepths() {
-        return true;
     }
 }

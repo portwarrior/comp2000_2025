@@ -153,8 +153,8 @@ public class SimpleZoneGenerator {
                 // Add at least one gate per zone at a random edge cell
                 Cell edgeCell = findEdgeCell(zone, gridCells);
                 if (edgeCell != null) {
-                    // Create a simple gate (direction doesn't matter for now)
-                    Gate gate = new Gate(edgeCell, edgeCell, Gate.Direction.NORTH);
+                    // Create a simple gate
+                    Gate gate = new Gate(edgeCell, edgeCell);
                     zone.addGate(gate);
                 }
             }

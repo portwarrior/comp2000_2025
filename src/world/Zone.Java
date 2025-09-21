@@ -89,8 +89,4 @@ public class Zone {
     public int getZoneId() {
         return zoneId;
     }
-    
-    public int getSize() {
-        return cells.size();
-    }
 }

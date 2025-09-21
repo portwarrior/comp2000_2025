@@ -1,6 +1,5 @@
 package items.consumables;
 
-import actors.Actor;
 import actors.Bird;
 
 /**
@@ -22,13 +21,5 @@ public class Worm extends Consumable {
     @Override
     public String getRegistryId() {
         return REGISTRY_ID;
-    }
-    
-    /**
-     * Worms cannot spawn in depths terrain.
-     */
-    @Override
-    public boolean allowedInDepths() {
-        return false;
     }
 }

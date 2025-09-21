@@ -167,52 +167,6 @@ public class SpawnPointManager {
         return validPoints;
     }
     
-    /**
-     * Find the best spawn point for an item based on distance to animals
-     */
-    public SpawnPoint findBestSpawnPoint(String itemType, List<Cell> animalLocations) {
-        List<SpawnPoint> validPoints = getValidSpawnPoints(itemType);
-        if (validPoints.isEmpty()) {
-            return null;
-        }
-        SpawnPoint bestPoint = null;
-        int bestScore = -1;
-        for (SpawnPoint spawnPoint : validPoints) {
-            int score = calculateSpawnScore(spawnPoint, animalLocations);
-            if (score > bestScore) {
-                bestScore = score;
-                bestPoint = spawnPoint;
-            }
-        }
-        return bestPoint;
-    }
-    
-    /**
-     * Calculate how good a spawn point is
-     */
-    private int calculateSpawnScore(SpawnPoint spawnPoint, List<Cell> animalLocations) {
-        int score = 100; 
-        
-        // Prefer spawn points that are not too close and not too far from animals
-        for (Cell animalCell : animalLocations) {
-            int distance = spawnPoint.getDistanceTo(animalCell);
-            if (distance >= 3 && distance <= 8) {
-                score += 20; // Good distance - not too easy, not too hard
-            } else if (distance < 3) {
-                score -= 10; // Too close - too easy
-            } else if (distance > 12) {
-                score -= 15; // Too far - too hard
-            }
-        }
-        // Bonus for certain tags
-        if (spawnPoint.hasTag("central")) {
-            score += 10;
-        }
-        if (spawnPoint.hasTag("ridge_top") || spawnPoint.hasTag("shore")) {
-            score += 5; 
-        }
-        return score;
-    }
     
     // Getters
     public List<SpawnPoint> getAllSpawnPoints() {

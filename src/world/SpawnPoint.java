@@ -126,20 +126,7 @@ public class SpawnPoint {
         return zone;
     }
     
-    public List<String> getTags() {
-        return tags;
-    }
-    
     public boolean isActive() {
         return isActive;
-    }
-    
-    public void setActive(boolean active) {
-        this.isActive = active;
-    }
-    
-    public long getCooldownRemaining() {
-        long remaining = cooldownUntil - System.currentTimeMillis();
-        return Math.max(0, remaining);
     }
 }

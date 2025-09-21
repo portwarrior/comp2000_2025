@@ -147,10 +147,6 @@ public class VisualItem {
         return location; 
     }
     
-    public void setLocation(Cell newLocation) {
-        this.location = newLocation;
-    }
-    
     public boolean isAt(Cell cell) {
         return location != null && cell != null && 
                location.col == cell.col && location.row == cell.row;
