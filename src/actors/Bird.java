@@ -1,11 +1,20 @@
+package actors;
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.ArrayList;
+
+import world.Cell;
+
 
 public class Bird extends Actor {
   public Bird(Cell inLoc) {
     loc = inLoc;
     color = Color.GREEN;
+    buildDisplay();
+  }
+  
+  @Override
+  protected void buildDisplay() {
     display = new ArrayList<Polygon>();
     Polygon wing1 = new Polygon();
     wing1.addPoint(loc.x + 5, loc.y + 5);
