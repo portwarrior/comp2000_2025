@@ -55,15 +55,25 @@ public class GameifiedSpawnSystem {
      * Set up base spawn weights for each landscape type
      */
     private void initializeWeights() {
-        // LEGOS weights (neutral zone - all animals allowed)
+        // NEUTRAL weights (default zone - all animals allowed, balanced spawning)
+        Map<String, Double> neutralWeights = new HashMap<>();
+        neutralWeights.put("bone", 0.3);     // Dog food
+        neutralWeights.put("milk", 0.3);     // Cat food
+        neutralWeights.put("worm", 0.3);     // Bird food
+        neutralWeights.put("water", 0.5);    // Universal need
+        neutralWeights.put("bowl", 0.15);    // Tools
+        neutralWeights.put("cup", 0.15);
+        neutralWeights.put("saucer", 0.15);
+        landscapeWeights.put("NEUTRAL", neutralWeights);
+        
         Map<String, Double> legosWeights = new HashMap<>();
-        legosWeights.put("bone", 0.5);     // Dog food
-        legosWeights.put("milk", 0.4);     // Cat food
-        legosWeights.put("worm", 0.4);     // Bird food
-        legosWeights.put("water", 0.6);    // Universal need
-        legosWeights.put("bowl", 0.2);     // Tools
-        legosWeights.put("cup", 0.2);
-        legosWeights.put("saucer", 0.2);
+        legosWeights.put("bone", 0.8);     // High dog food
+        legosWeights.put("water", 0.6);    // Dogs need water
+        legosWeights.put("bowl", 0.4);     // Dog tools
+        legosWeights.put("milk", 0.2);     // Some cat food
+        legosWeights.put("worm", 0.2);     // Some bird food
+        legosWeights.put("cup", 0.1);
+        legosWeights.put("saucer", 0.1);
         landscapeWeights.put("LEGOS", legosWeights);
         
         // SAND_DUNES weights (cat heaven)
