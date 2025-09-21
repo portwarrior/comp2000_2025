@@ -56,6 +56,11 @@ To get started- Run powershell file with `./make.ps1 clean` then run the code in
 - **State Management**: Tracking selections and positions
 - **Modular Design**: Independent, testable components
 
+### Design Excellence Through OOP
+**Inheritance** enabled elegant code reuse - the `Actor` base class provides common functionality (health, movement, inventory) while `Dog`, `Cat`, and `Bird` subclasses specialize behavior through method overriding. This eliminated code duplication and created a maintainable hierarchy.
+
+**Generics** enhanced type safety and flexibility - `List<Actor>`, `List<Zone>`, and `List<VisualItem>` collections provide compile-time type checking while allowing dynamic sizing. The `ArrayList<T>` usage throughout the codebase prevents ClassCastException errors and enables IDE autocompletion, making the code both safer and more developer-friendly.
+
 ### Software Engineering Practices
 - **Single Responsibility**: Each class has one clear purpose
 - **Open/Closed Principle**: Easy to add new animals without modifying existing code
