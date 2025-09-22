@@ -38,7 +38,7 @@ What I love about the controls is how immediate they feel. There's no lag, no co
 
 You'll need Java 17 or newer to run this. I've kept everything simple - no complicated setup required.
 
-To get started- Run powershell file with `./make.ps1 clean` then run the code in main file.
+To get started- Run powershell file with `./make.ps1 clean` then run `./make.ps1 compile` to compile the code in main file and then finally `./make.ps1 run` to run the file.
 
 ### Dependencies
 - **Java Swing**: GUI framework (built-in)
