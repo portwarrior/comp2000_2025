@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import world.MovementHighlights;
 import world.GameWorldManager;
 import world.HealthBarRenderer;
 
-public class Stage implements MouseListener {
+public class Stage implements MouseListener, KeyListener {
   Grid grid;
   List<Actor> actors;
   List<Cell> animalCells;
@@ -90,6 +92,10 @@ public class Stage implements MouseListener {
     // Draw movement highlights (grey circles and selection ring)
     MovementHighlights.drawHighlights(g, mover.getSelection());
     
+    // Render weather effects on top of everything
+    Graphics2D weatherG2d = (Graphics2D) g;
+    worldManager.renderWeatherOverlay(weatherG2d);
+    
     Optional<Cell> underMouse = grid.cellAtPoint(mouseLoc);
     if(underMouse.isPresent()) {
       Cell hoverCell = underMouse.get();
@@ -124,6 +130,19 @@ public class Stage implements MouseListener {
     // Position health bars below inventory display with some spacing
     int healthBarStartY = yOffset + 20;
     HealthBarRenderer.drawHealthBars(g2d, actors, 740, healthBarStartY, 45);
+    
+    // Add instructions for new features
+    g.setColor(Color.DARK_GRAY);
+    int instructY = healthBarStartY + 160;
+    g.drawString("Controls:", 740, instructY);
+    g.drawString("- Click animal to select", 740, instructY + 20);
+    g.drawString("- Click highlighted cell to move", 740, instructY + 35);
+    g.drawString("- Press 'F' to move to closest food", 740, instructY + 50);
+    g.drawString("Food rules:", 740, instructY + 75);
+    g.drawString("- Dogs eat bones", 740, instructY + 90);
+    g.drawString("- Cats drink milk", 740, instructY + 105);
+    g.drawString("- Birds eat worms", 740, instructY + 120);
+    g.drawString("- All animals drink water", 740, instructY + 135);
   }
 
   @Override
@@ -159,6 +178,33 @@ public class Stage implements MouseListener {
 
   @Override
   public void mouseExited(MouseEvent e) {
+    // Not needed for this implementation
+  }
+  
+  // KeyListener implementation for "move to food" button
+  @Override
+  public void keyPressed(KeyEvent e) {
+    // Press 'F' to move selected animal to closest food
+    if (e.getKeyCode() == KeyEvent.VK_F) {
+      Actor[] animalArray = actors.toArray(new Actor[0]);
+      Cell[] cellArray = animalCells.toArray(new Cell[0]);
+      
+      mover.moveToClosestFood(grid.cells, animalArray, cellArray);
+      
+      // Update the animal cells list after movement
+      for (int i = 0; i < animalArray.length; i++) {
+        animalCells.set(i, cellArray[i]);
+      }
+    }
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    // Not needed for this implementation
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
     // Not needed for this implementation
   }
 }

@@ -16,6 +16,11 @@ public class Main extends JFrame {
         setPreferredSize(new Dimension(1024, 720));
         // Add the stage as a mouse listener so it can handle clicks
         addMouseListener(stage);
+        // Add the stage as a key listener for "move to food" functionality
+        addKeyListener(stage);
+        // Make sure the canvas can receive keyboard focus
+        setFocusable(true);
+        requestFocusInWindow();
       }
 
       @Override

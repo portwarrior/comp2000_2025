@@ -1,7 +1,8 @@
-# Usage: .\make.ps1 clean, .\make.ps1 compile, .\make.ps1 run, or .\make.ps1 (does all)
+# Usage: .\make.ps1 clean, .\make.ps1 compile, .\make.ps1 run, .\make.ps1 -d (debug mode), or .\make.ps1 (does all)
 
 param(
-    [string]$target = "all"
+    [string]$target = "all",
+    [switch]$d = $false  # Debug flag
 )
 
 $SRC_DIR = "src"
@@ -45,7 +46,12 @@ function Compile {
 function Run {
     Write-Host "Running the game..." -ForegroundColor Yellow
     Set-Location $SRC_DIR
-    java $MAIN_CLASS
+    if ($d) {
+        Write-Host "Debug mode enabled" -ForegroundColor Cyan
+        java -DDEBUG_MODE=true $MAIN_CLASS
+    } else {
+        java $MAIN_CLASS
+    }
     Set-Location ..
 }
 
@@ -59,10 +65,20 @@ switch ($target.ToLower()) {
         Run
     }
     default {
-        Write-Host "Usage: .\make.ps1 [clean|compile|run|all]" -ForegroundColor Red
+        Write-Host "Usage: .\make.ps1 [clean|compile|run|all] [-d]" -ForegroundColor Red
         Write-Host "  clean   - Remove all .class files"
         Write-Host "  compile - Compile Java files"
         Write-Host "  run     - Run the program"
         Write-Host "  all     - Do all steps (default)"
+        Write-Host ""
+        Write-Host "  -d      - Enable debug mode:" -ForegroundColor Cyan
+        Write-Host "           • Shows detailed console output (spawning, weather, etc.)"
+        Write-Host "           • Displays weather status panels in-game"
+        Write-Host "           • Shows animal state changes and pathfinding details"
+        Write-Host ""
+        Write-Host "Examples:" -ForegroundColor Yellow
+        Write-Host "  .\make.ps1           # Clean, compile, and run (silent mode)"
+        Write-Host "  .\make.ps1 -d        # Clean, compile, and run with debug output"
+        Write-Host "  .\make.ps1 run -d    # Just run with debug mode enabled"
     }
 }

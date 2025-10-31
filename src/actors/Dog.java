@@ -10,6 +10,8 @@ public class Dog extends Actor {
     loc = inLoc;
     color = Color.YELLOW;
     setHealth(120); // Dogs are sturdy with high health
+    // Always spawn with full health
+    currentHealth = maxHealth;
     buildDisplay();
   }
   

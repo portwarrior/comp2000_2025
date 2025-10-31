@@ -10,9 +10,8 @@ public class Cat extends Actor {
     loc = inLoc;
     color = Color.BLUE;
     setHealth(85); // Cats are agile but not as tanky as dogs
-    
-    // Demo: Start with medium health to show different bar colors
-    currentHealth = 45; // Medium health for demo
+    // Always spawn with full health
+    currentHealth = maxHealth;
     
     buildDisplay();
   }

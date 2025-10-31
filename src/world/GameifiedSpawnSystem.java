@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.Random;
 
 /**
@@ -161,8 +162,8 @@ public class GameifiedSpawnSystem {
                 
                 double weight = calculateSpawnWeight(itemType, spawnPoint, zone, animals);
                 
-                // Debug: Show weight calculations
-                if (weight > 0.01) {
+                // Debug: Show weight calculations (only in debug mode)
+                if ("true".equals(System.getProperty("DEBUG_MODE")) && weight > 0.01) {
                     System.out.println("DEBUG: " + itemType + " weight " + String.format("%.3f", weight) + 
                                      " in " + landscape + " zone");
                 }
@@ -211,67 +212,66 @@ public class GameifiedSpawnSystem {
     
     /**
      * Boost spawn weight if animals need this item urgently
+     * Refactored to use streams instead of loops - more functional approach
      */
     private double calculateHealthBias(String itemType, List<Actor> animals, SpawnPoint spawnPoint) {
-        // Simple approach: if any animal's health is low, boost their required food
-        for (Actor animal : animals) {
-            String animalType = animal.getClass().getSimpleName();
-            
-            // Check if this animal needs this item
-            boolean needsItem = false;
-            if ("Dog".equals(animalType) && "bone".equals(itemType)) {
-                needsItem = true;
-            } else if ("Cat".equals(animalType) && "milk".equals(itemType)) {
-                needsItem = true;
-            } else if ("Bird".equals(animalType) && "worm".equals(itemType)) {
-                needsItem = true;
-            } else if ("water".equals(itemType)) {
-                needsItem = true; // All animals need water
-            }
-            
-            if (needsItem) {
-                // Check if animal can reach this spawn point
-                if (pathfinder.hasPath(animal.getLocation(), spawnPoint.getCell(), animalType)) {
-                    // Simple health check (assume animals start at 100% health)
-                    // In real game, you'd check actual health values
-                    return 1.75; // Health bias multiplier
-                }
-            }
-        }
+        // Using streams to check if any animal urgently needs this item
+        boolean anyAnimalNeedsItem = animals.stream()
+                .filter(animal -> animalNeedsItem(animal, itemType))
+                .anyMatch(animal -> pathfinder.hasPath(
+                    animal.getLocation(), 
+                    spawnPoint.getCell(), 
+                    animal.getClass().getSimpleName()
+                ));
         
-        return 1.0; // No health bias
+        return anyAnimalNeedsItem ? 1.75 : 1.0;
+    }
+    
+    /**
+     * Check if an animal needs a specific item type
+     * I extracted this to make the logic clearer
+     */
+    private boolean animalNeedsItem(Actor animal, String itemType) {
+        String animalType = animal.getClass().getSimpleName();
+        
+        return ("Dog".equals(animalType) && "bone".equals(itemType)) ||
+               ("Cat".equals(animalType) && "milk".equals(itemType)) ||
+               ("Bird".equals(animalType) && "worm".equals(itemType)) ||
+               "water".equals(itemType); // All animals need water
     }
     
     /**
      * Prefer spawning at medium distance from animals (not too easy, not too hard)
+     * Refactored using streams for cleaner distance calculation
      */
     private double calculateDistanceFactor(String itemType, SpawnPoint spawnPoint, List<Actor> animals) {
         if (animals.isEmpty()) {
             return 1.0;
         }
         
-        int totalDistance = 0;
-        int reachableAnimals = 0;
+        // Using streams to calculate average distance to reachable animals
+        OptionalDouble avgDistance = animals.stream()
+                .filter(animal -> pathfinder.hasPath(
+                    animal.getLocation(),
+                    spawnPoint.getCell(),
+                    animal.getClass().getSimpleName()
+                ))
+                .mapToInt(animal -> spawnPoint.getDistanceTo(animal.getLocation()))
+                .average();
         
-        for (Actor animal : animals) {
-            if (pathfinder.hasPath(animal.getLocation(), spawnPoint.getCell(), animal.getClass().getSimpleName())) {
-                totalDistance += spawnPoint.getDistanceTo(animal.getLocation());
-                reachableAnimals++;
-            }
+        // If no animals can reach this point, don't spawn here
+        if (!avgDistance.isPresent()) {
+            return 0;
         }
         
-        if (reachableAnimals == 0) {
-            return 0; // No animals can reach this point
-        }
+        double distance = avgDistance.getAsDouble();
         
-        double avgDistance = (double) totalDistance / reachableAnimals;
-        
-        // Prefer distances between 6-9 cells (sweet spot for exploration)
-        if (avgDistance >= 6 && avgDistance <= 9) {
+        // I found distances between 6-9 cells create good exploration gameplay
+        if (distance >= 6 && distance <= 9) {
             return 1.5; // Sweet spot bonus
-        } else if (avgDistance >= 3 && avgDistance <= 12) {
+        } else if (distance >= 3 && distance <= 12) {
             return 1.0; // Acceptable range
-        } else if (avgDistance < 3) {
+        } else if (distance < 3) {
             return 0.7; // Too close - too easy
         } else {
             return 0.5; // Too far - too frustrating
@@ -401,7 +401,9 @@ public class GameifiedSpawnSystem {
                     if (point.canSpawn("water") && point.isReadyToSpawn()) {
                         SpawnDecision pitySpawn = new SpawnDecision("water", point, 1.0);
                         executeSpawn(pitySpawn);
-                        System.out.println("PITY SPAWN: Emergency water for thirsty animals!");
+                        if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+                            System.out.println("PITY SPAWN: Emergency water for thirsty animals!");
+                        }
                         return; // Only spawn one
                     }
                 }
@@ -420,7 +422,9 @@ public class GameifiedSpawnSystem {
                 // Animal has failed to eat 2+ times due to missing this tool
                 // Boost tool spawn rates temporarily
                 
-                System.out.println("PITY SYSTEM: Boosting " + tool + " spawns due to repeated failures");
+                if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+                    System.out.println("PITY SYSTEM: Boosting " + tool + " spawns due to repeated failures");
+                }
                 
                 // Reset the failure counter
                 toolFailureCount.put(tool, 0);
@@ -446,7 +450,9 @@ public class GameifiedSpawnSystem {
      */
     private void updateCurrentEvent() {
         if (currentEvent != null && System.currentTimeMillis() > eventEndTime) {
-            System.out.println("Event ended: " + currentEvent);
+            if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+                System.out.println("Event ended: " + currentEvent);
+            }
             currentEvent = null;
         }
         
@@ -467,7 +473,9 @@ public class GameifiedSpawnSystem {
         int duration = 30000 + random.nextInt(30000);
         eventEndTime = System.currentTimeMillis() + duration;
         
-        System.out.println("Special event started: " + currentEvent + " (lasting " + duration/1000 + " seconds)");
+        if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+            System.out.println("Special event started: " + currentEvent + " (lasting " + duration/1000 + " seconds)");
+        }
     }
     
     /**

@@ -120,7 +120,9 @@ public abstract class Actor {
     
     if (healthGain > 0) {
       heal(healthGain);
-      System.out.println(animalType + " ate " + foodType + " and gained " + healthGain + " health! Current health: " + currentHealth + "/" + maxHealth);
+      if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+        System.out.println(animalType + " ate " + foodType + " and gained " + healthGain + " health! Current health: " + currentHealth + "/" + maxHealth);
+      }
     }
   }
   
@@ -137,5 +139,50 @@ public abstract class Actor {
   protected void setHealth(int maxHealth) {
     this.maxHealth = maxHealth;
     this.currentHealth = maxHealth;
+  }
+  
+  /**
+   * Check if this animal can eat the given food type
+   * Students can easily understand food preferences:
+   * - Dogs eat bones (and water)
+   * - Cats eat milk (and water) 
+   * - Birds eat worms (and water)
+   */
+  public boolean canEat(String foodType) {
+    String animalType = this.getClass().getSimpleName();
+    String food = foodType.toLowerCase();
+    
+    // All animals can drink water
+    if (food.contains("water")) {
+      return true;
+    }
+    
+    // Animal-specific food preferences
+    if ("Dog".equals(animalType) && food.contains("bone")) {
+      return true; // Dogs eat bones
+    } else if ("Cat".equals(animalType) && food.contains("milk")) {
+      return true; // Cats drink milk
+    } else if ("Bird".equals(animalType) && food.contains("worm")) {
+      return true; // Birds eat worms
+    }
+    
+    return false; // This animal can't eat this food
+  }
+  
+  /**
+   * Get the preferred food type for this animal
+   */
+  public String getPreferredFood() {
+    String animalType = this.getClass().getSimpleName();
+    
+    if ("Dog".equals(animalType)) {
+      return "Bone";
+    } else if ("Cat".equals(animalType)) {
+      return "Milk";
+    } else if ("Bird".equals(animalType)) {
+      return "Worm";
+    }
+    
+    return "Water"; // fallback
   }
 }

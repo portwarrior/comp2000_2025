@@ -10,6 +10,9 @@ public class Bird extends Actor {
   public Bird(Cell inLoc) {
     loc = inLoc;
     color = Color.GREEN;
+    setHealth(100); // Birds have default health
+    // Always spawn with full health
+    currentHealth = maxHealth;
     buildDisplay();
   }
   

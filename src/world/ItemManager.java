@@ -27,7 +27,9 @@ public class ItemManager {
         if (item != null) {
             VisualItem visualItem = new VisualItem(item, location);
             visualItems.add(visualItem);
-            System.out.println("Spawned " + itemType + " at " + location.col + "," + location.row);
+            if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+                System.out.println("Spawned " + itemType + " at " + location.col + "," + location.row);
+            }
         }
     }
     
@@ -51,7 +53,9 @@ public class ItemManager {
             case "saucer":
                 return new SimpleToolItem("Saucer", 1);
             default:
-                System.out.println("Unknown item type: " + itemType);
+                if ("true".equals(System.getProperty("DEBUG_MODE"))) {
+                    System.out.println("Unknown item type: " + itemType);
+                }
                 return null;
         }
     }

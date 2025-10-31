@@ -16,11 +16,14 @@ public class SimpleZoneGenerator {
     }
     
     /**
-     * Generate zones for 20x20 grid random placement
+     * Generate zones for any grid size
      */
     public List<Zone> generateZones(Cell[][] gridCells) {
         List<Zone> zones = new ArrayList<>();
-        boolean[][] occupied = new boolean[20][20]; // Track taken cells
+        int gridHeight = gridCells.length;
+        int gridWidth = gridCells[0].length;
+        boolean[][] occupied = new boolean[gridHeight][gridWidth]; // Track taken cells
+        
         // Create 4-6 zones of different types
         int numZones = 4 + random.nextInt(3);
         for (int zoneIndex = 0; zoneIndex < numZones; zoneIndex++) {
@@ -49,9 +52,12 @@ public class SimpleZoneGenerator {
         int height = 4 + random.nextInt(3); // 4, 5, or 6
         
         // Try to find a good placement (max 50 attempts)
+        int gridHeight = gridCells.length;
+        int gridWidth = gridCells[0].length;
+        
         for (int attempt = 0; attempt < 50; attempt++) {
-            int startCol = random.nextInt(20 - width);
-            int startRow = random.nextInt(20 - height);
+            int startCol = random.nextInt(gridWidth - width);
+            int startRow = random.nextInt(gridHeight - height);
             
             // Check if this area is available
             if (isAreaFree(occupied, startCol, startRow, width, height)) {
@@ -86,7 +92,7 @@ public class SimpleZoneGenerator {
         // Add cells to zone
         for (int col = startCol; col < startCol + width; col++) {
             for (int row = startRow; row < startRow + height; row++) {
-                zone.addCell(gridCells[col][row]);
+                zone.addCell(gridCells[row][col]);
             }
         }
         
@@ -107,13 +113,10 @@ public class SimpleZoneGenerator {
     private void markCellsOccupied(Zone zone, boolean[][] occupied) {
         for (Cell cell : zone.getCells()) {
             // Find cell coordinates
-            for (int col = 0; col < 20; col++) {
-                for (int row = 0; row < 20; row++) {
-                    if (cell.col == (char)('A' + col) && cell.row == row) {
-                        occupied[col][row] = true;
-                        break;
-                    }
-                }
+            int col = cell.col - 'A';
+            int row = cell.row;
+            if (row >= 0 && row < occupied.length && col >= 0 && col < occupied[0].length) {
+                occupied[row][col] = true;
             }
         }
     }
@@ -124,10 +127,13 @@ public class SimpleZoneGenerator {
     private void fillRemainingCells(Cell[][] gridCells, boolean[][] occupied, List<Zone> zones) {
         List<Cell> remainingCells = new ArrayList<>();
         
-        for (int col = 0; col < 20; col++) {
-            for (int row = 0; row < 20; row++) {
-                if (!occupied[col][row]) {
-                    remainingCells.add(gridCells[col][row]);
+        int gridHeight = gridCells.length;
+        int gridWidth = gridCells[0].length;
+        
+        for (int row = 0; row < gridHeight; row++) {
+            for (int col = 0; col < gridWidth; col++) {
+                if (!occupied[row][col]) {
+                    remainingCells.add(gridCells[row][col]);
                 }
             }
         }
