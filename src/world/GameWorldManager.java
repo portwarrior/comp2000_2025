@@ -210,7 +210,7 @@ public class GameWorldManager {
      */
     private void tryHealFromInventory(Actor actor) {
         // For now, just give a small heal if they have any food items
-        // This can be expanded to check specific item types
+        // could expand this to use different items for different healing amounts
         if (!actor.getInventory().isEmpty()) {
             actor.heal(5); // Small healing from having food
         }

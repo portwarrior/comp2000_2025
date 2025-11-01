@@ -21,6 +21,7 @@ public class ShelterSeekingState implements WeatherBehaviorState {
         }
         
         // Animals are more stressed and eat more when seeking shelter
+        // note to self: maybe make this dependent on animal type later?
         if (Math.random() < 0.4) {
             // Stress eating behavior
             actor.takeDamage(1); // Increased energy consumption from stress

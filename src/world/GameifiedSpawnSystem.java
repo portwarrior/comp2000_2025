@@ -266,7 +266,8 @@ public class GameifiedSpawnSystem {
         
         double distance = avgDistance.getAsDouble();
         
-        // I found distances between 6-9 cells create good exploration gameplay
+        // distances between 6-9 cells work well for exploration
+        // found this through playtesting - closer = boring, further = annoying
         if (distance >= 6 && distance <= 9) {
             return 1.5; // Sweet spot bonus
         } else if (distance >= 3 && distance <= 12) {

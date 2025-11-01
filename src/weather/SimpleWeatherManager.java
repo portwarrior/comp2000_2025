@@ -46,7 +46,7 @@ public class SimpleWeatherManager {
      */
     public boolean isRainingAt(int x, int y) {
         double rainIntensity = getRainIntensityAt(x, y);
-        return rainIntensity > 0.2; // I found 0.2 to be a good threshold through testing
+        return rainIntensity > 0.2; // 0.2 works well after some trial and error
     }
     
     /**
@@ -66,7 +66,7 @@ public class SimpleWeatherManager {
     
     /**
      * Get temperature at position using functional approach
-     * I structured this similarly to rain for consistency
+     * structured this similarly to rain for consistency
      */
     public double getTemperatureAt(int x, int y) {
         if (currentWeather == null) return 0.5; // Neutral default
@@ -118,8 +118,8 @@ public class SimpleWeatherManager {
             return new WeatherConditions();
         }
         
-        // Using streams to calculate averages for each weather type
-        // I group by weather type then calculate average of values
+        // grouping by weather type then averaging values
+        // TODO: maybe cache this if performance becomes an issue?
         
         double avgRain = currentWeather.stream()
                 .filter(p -> "rain".equals(p.getWeatherType()))

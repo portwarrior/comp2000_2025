@@ -166,7 +166,7 @@ public abstract class Actor {
       return true; // Birds eat worms
     }
     
-    return false; // This animal can't eat this food
+    return false; // nope, can't eat that
   }
   
   /**
@@ -183,6 +183,6 @@ public abstract class Actor {
       return "Worm";
     }
     
-    return "Water"; // fallback
+    return "Water"; // fallback - everyone needs water
   }
 }

@@ -22,7 +22,7 @@ public class SimpleWeatherClient {
     private final int MAX_BUFFER_SIZE = 50; // Keep recent weather points
     
     public SimpleWeatherClient() {
-        // I chose to use the default HttpClient configuration for simplicity
+        // default HttpClient works fine, no need to overcomplicate
         this.client = HttpClient.newHttpClient();
         this.latestData = new CopyOnWriteArrayList<>(); // Thread-safe for concurrent access
         startStreaming();
@@ -54,7 +54,7 @@ public class SimpleWeatherClient {
     
     /**
      * Process the continuous input stream from the server
-     * I used lambdas here to make the line processing more functional
+     * using lambdas to make the line processing more functional
      */
     private void processStream(InputStream inputStream) {
         try (BufferedReader reader = new BufferedReader(

@@ -152,7 +152,7 @@ public class SimpleZoneGenerator {
      */
     private void createGates(List<Zone> zones, Cell[][] gridCells) {
         // For now, just create a few random gates
-        // This is a simplified approach - in a real game you'd want proper pathfinding
+        // proper pathfinding would be better but this works for the demo
         
         for (Zone zone : zones) {
             if (zone.getCells().size() > 0) {

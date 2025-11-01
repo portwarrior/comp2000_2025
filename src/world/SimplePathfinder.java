@@ -167,7 +167,7 @@ public class SimplePathfinder {
         int row2 = getCellRow(to);
         
         // Chebyshev distance (max of horizontal and vertical distance)
-        // This works well for king movement
+        // works for king movement - spent way too long debugging this at 2am lol
         return Math.max(Math.abs(col1 - col2), Math.abs(row1 - row2));
     }
     

@@ -21,7 +21,7 @@ public class RainEffectDecorator extends WeatherEffectDecorator {
         // Create rain droplets on the object
         Color originalColor = g.getColor();
         
-        // Rain droplets
+        // Rain droplets - tbh the alpha value took some fiddling to get right
         g.setColor(new Color(150, 200, 255, (int)(rainIntensity * 150)));
         
         int dropletCount = (int)(rainIntensity * 8); // More droplets with higher intensity
